@@ -4,4 +4,4 @@ out/*.fdb_latexmk
 out/*.fls
 out/*.log
 out/*.gz
-*.DS_Store
+.DS_Store
