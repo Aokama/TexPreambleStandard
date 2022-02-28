@@ -1,0 +1,453 @@
+% DocumentClass : 
+%   You can change optional arguments here
+%   See jlreq documentation at https://github.com/abenori/jlreq/blob/master/README-ja.md
+\documentclass[a4paper, 11pt]{jlreq}
+
+% Packages : Graphics
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{xcolor}
+\usepackage{tikz}
+
+% Packages : Margin Sizes
+\usepackage[top=1.5cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
+
+% Packages : AMS Packages
+\usepackage{amsmath, amsfonts, amssymb}
+
+% Packages : Mathtools
+%   Using mathtools package for declaring custom brackets and references.
+%   Custom setting location is in "Commands" section.
+\usepackage{mathtools}
+%   Optional : You can disable auto references with uncommenting this line
+%   \mathtoolsset{showonlyrefs=true}
+
+% Packages : TColorBox
+%   Using tcolorobox package for declaring custom theorem environment and decoration environments.
+%   Custom setting location is in "Commands" section.
+\usepackage{tcolorbox}
+%   Optional : You can disable page breaking with commenting out this line
+    \tcbuselibrary{breakable}
+%   Optional : You can enable shading with uncommenting this line
+%   \tcbuselibrary{skins}
+%   Optional : You can disable tcb theorems with commenting out this line
+    \tcbuselibrary{theorems}
+
+    \tcbuselibrary{skins}
+
+% Commands : Document Class Settings
+%   Changing default heading font to mcfamily
+%   (Warning) It seems that \fontsize is not working correctly or my syntax is wrong in some cases.
+\ModifyHeading{part}          {font=\fontsize{30Q}{24H}\mcfamily}
+\ModifyHeading{section}       {font=\fontsize{24Q}{24H}\mcfamily}
+\ModifyHeading{subsection}    {font=\fontsize{18Q}{24H}\mcfamily}
+\ModifyHeading{subsubsection} {font=\fontsize{16Q}{24H}\mcfamily}
+\ModifyHeading{paragraph}     {font=\fontsize{14Q}{24H}\mcfamily}
+\ModifyHeading{subparagraph}  {font=\fontsize{14Q}{24H}\mcfamily}
+
+% Commands : Mathtools Settings
+%   Declaring PairedDelimiters for math expressions
+%   S = (), M = {}, L = [], A = <>, Abs = ||
+\DeclarePairedDelimiter{\SBrac}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\MBrac}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\LBrac}{\lbrack}{\rbrack}
+\DeclarePairedDelimiter{\AngBrac}{\langle}{\rangle}
+\DeclarePairedDelimiter{\AbsBrac}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\NormBrac}{\lVert}{\rVert}
+%   Declaring MathOperators (lim type)
+\DeclareMathOperator*{\argmin}{arg~min}
+\DeclareMathOperator*{\argmax}{arg~max}
+%   Declaring MathOperators (log type)
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\Trace}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Diag}{Diag}
+\DeclareMathOperator{\Det}{Det}
+\DeclareMathOperator{\rank}{rank}
+
+% Commands : Newcommands for tcolorbox theorems
+%   Adding some new tcbtheorem environments.
+
+\newcounter{usertcbthms}
+
+%\definecolor{colorThm}{red!50!black}
+%\definecolor{colorDef}{blue!60!black}
+\definecolor{colorThm}{HTML}{DD333C}
+\definecolor{colorDef}{HTML}{1B5B76}
+\definecolor{colorPrp}{HTML}{D35257}
+\definecolor{colorCor}{HTML}{70395A}
+\definecolor{colorLem}{HTML}{EA8871}
+\definecolor{colorAxm}{HTML}{43A19B}
+
+\newtcbtheorem[use counter = usertcbthms, number freestyle = {\noexpand\thepart-\noexpand\thesection.\noexpand\arabic{\tcbcounter}}]{userThm}{定理}
+{
+    empty,
+    attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorThm,line width=2pt]([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorThm,
+    fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,
+    parbox=false,
+    boxsep=0pt,
+    left=0pt,
+    right=3mm,
+    top=4pt,
+    breakable,
+    pad at break*=0mm,attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorThm,line width=2pt]
+    ([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorThm,fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=0pt,right=3mm,top=4pt,
+    breakable,pad at break*=0mm,vfill before first,
+    overlay unbroken={\draw[colorThm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorThm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorThm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorThm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},%
+    vfill before first,
+    overlay unbroken={\draw[colorThm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorThm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorThm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorThm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},
+}{uThm}
+
+\newtcbtheorem[use counter = usertcbthms, number freestyle = {\noexpand\thepart-\noexpand\thesection.\noexpand\arabic{\tcbcounter}}]{userDef}{定義}
+{
+    empty,
+    attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorDef,line width=2pt]([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorDef,
+    fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,
+    parbox=false,
+    boxsep=0pt,
+    left=0pt,
+    right=3mm,
+    top=4pt,
+    breakable,
+    pad at break*=0mm,attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorDef,line width=2pt]
+    ([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorDef,fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=0pt,right=3mm,top=4pt,
+    breakable,pad at break*=0mm,vfill before first,
+    overlay unbroken={\draw[colorDef,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorDef,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorDef,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorDef,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},%
+    vfill before first,
+    overlay unbroken={\draw[colorDef,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorDef,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorDef,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorDef,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},
+}{uDef}
+
+\newtcbtheorem[use counter = usertcbthms, number freestyle = {\noexpand\thepart-\noexpand\thesection.\noexpand\arabic{\tcbcounter}}]{userPrp}{命題}
+{
+    empty,
+    attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorPrp,line width=2pt]([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorPrp,
+    fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,
+    parbox=false,
+    boxsep=0pt,
+    left=0pt,
+    right=3mm,
+    top=4pt,
+    breakable,
+    pad at break*=0mm,attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorPrp,line width=2pt]
+    ([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorPrp,fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=0pt,right=3mm,top=4pt,
+    breakable,pad at break*=0mm,vfill before first,
+    overlay unbroken={\draw[colorPrp,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorPrp,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorPrp,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorPrp,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},%
+    vfill before first,
+    overlay unbroken={\draw[colorPrp,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorPrp,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorPrp,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorPrp,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},
+}{uPrp}
+
+\newtcbtheorem[use counter = usertcbthms, number freestyle = {\noexpand\thepart-\noexpand\thesection.\noexpand\arabic{\tcbcounter}}]{userCor}{系}
+{
+    empty,
+    attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorCor,line width=2pt]([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorCor,
+    fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,
+    parbox=false,
+    boxsep=0pt,
+    left=0pt,
+    right=3mm,
+    top=4pt,
+    breakable,
+    pad at break*=0mm,attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorCor,line width=2pt]
+    ([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorCor,fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=0pt,right=3mm,top=4pt,
+    breakable,pad at break*=0mm,vfill before first,
+    overlay unbroken={\draw[colorCor,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorCor,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorCor,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorCor,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},%
+    vfill before first,
+    overlay unbroken={\draw[colorCor,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorCor,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorCor,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorCor,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},
+}{uCor}
+
+\newtcbtheorem[use counter = usertcbthms, number freestyle = {\noexpand\thepart-\noexpand\thesection.\noexpand\arabic{\tcbcounter}}]{userLem}{補題}
+{
+    empty,
+    attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorLem,line width=2pt]([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorLem,
+    fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,
+    parbox=false,
+    boxsep=0pt,
+    left=0pt,
+    right=3mm,
+    top=4pt,
+    breakable,
+    pad at break*=0mm,attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorLem,line width=2pt]
+    ([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorLem,fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=0pt,right=3mm,top=4pt,
+    breakable,pad at break*=0mm,vfill before first,
+    overlay unbroken={\draw[colorLem,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorLem,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorLem,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorLem,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},%
+    vfill before first,
+    overlay unbroken={\draw[colorLem,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorLem,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorLem,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorLem,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},
+}{uLem}
+
+\newtcbtheorem[use counter = usertcbthms, number within = section, number freestyle = {\noexpand\thepart-\noexpand\thesection.\noexpand\arabic{\tcbcounter}}]{userAxm}{公理}
+{
+    empty,
+    attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorAxm,line width=2pt]([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorAxm,
+    fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,
+    parbox=false,
+    boxsep=0pt,
+    left=0pt,
+    right=3mm,
+    top=4pt,
+    breakable,
+    pad at break*=0mm,attach boxed title to top left,
+    boxed title style={empty,size=minimal,toprule=2pt,top=4pt,
+    overlay={\draw[colorAxm,line width=2pt]
+    ([yshift=-1pt]frame.north west)--([yshift=-1pt]frame.north east);}},
+    coltitle=colorAxm,fonttitle=\Large\bfseries,
+    before=\par\medskip\noindent,parbox=false,boxsep=0pt,left=0pt,right=3mm,top=4pt,
+    breakable,pad at break*=0mm,vfill before first,
+    overlay unbroken={\draw[colorAxm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorAxm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorAxm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorAxm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},%
+    vfill before first,
+    overlay unbroken={\draw[colorAxm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east)--(frame.south west); },
+    overlay first={\draw[colorAxm,line width=1pt]([yshift=-1pt]title.north east)--([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)--([xshift=-0.5pt]frame.south east); },
+    overlay middle={\draw[colorAxm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east); },
+    overlay last={\draw[colorAxm,line width=1pt] ([xshift=-0.5pt]frame.north east)--([xshift=-0.5pt]frame.south east)--(frame.south west);},
+}{uAxm}
+
+% Commands : Newcommands for math expressions
+%   Adding some math commands for convenience.
+%   
+% ==== Roman and Italic Symbols ====
+% \rS = Roman, \iS = Italic
+\newcommand{\rS}[1]{\mathrm{#1}}
+\newcommand{\iS}[1]{\mathit{#1}}
+% ==== Fraktur, Caligraphy and Script Symbols ====
+% \frkS = Fraktur, \calS = Caligraphy, \scrS = Script
+\newcommand{\frkS}[1]{\mathfrak{#1}}
+\newcommand{\calS}[1]{\mathcal{#1}}
+\newcommand{\scrS}[1]{\mathscr{#1}}
+% ==== Bold Symbols ====
+%   Some commands have compeletely same definition but it is for readability
+% \rV = Roman Bold, \iV = Italic Bold, \gV = Greek Bold, \bV = Blackboard Bold, \oV = Others Bold(Not Recommended)
+\newcommand{\rV}[1]{\mathbf{#1}}
+\newcommand{\iV}[1]{\boldsymbol{#1}}
+\newcommand{\gV}[1]{\boldsymbol{#1}}
+\newcommand{\bV}[1]{\mathbb{#1}}
+\newcommand{\oV}[1]{\boldsymbol{#1}}
+% ==== Set Symbols ====
+% \setXXXXX = Blackboard Bold symbols for some famous sets named XXXXX
+\newcommand{\setReal}{\bV{R}}
+\newcommand{\setRational}{\bV{Q}}
+\newcommand{\setComplex}{\bV{C}}
+\newcommand{\setInteger}{\bV{Z}}
+\newcommand{\setNatural}{\bV{N}}
+\newcommand{\setQuarternion}{\bV{H}}
+\newcommand{\setOctonion}{\bV{O}}
+% ==== Functions ====
+% \fnS{f}{x} = f(x), you can change bracket type
+\newcommand{\fnS}[2]{{#1}\SBrac*{#2}}
+\newcommand{\fnM}[2]{{#1}\MBrac*{#2}}
+\newcommand{\fnL}[2]{{#1}\LBrac*{#2}}
+\newcommand{\fnAng}[2]{{#1}\AngBrac*{#2}}
+\newcommand{\fnAbs}[2]{{#1}\AbsBrac*{#2}}
+\newcommand{\fnNorm}[2]{{#1}\NormBrac*{#2}}
+% ==== Default Alternatives ====
+% \Ang{expr} = \AngBrac{expr}, \Abs{expr} = \AbsBrac{expr}, \Norm{expr} = \NormBrac{expr}
+\newcommand{\Ang}[1]{\AngBrac{#1}}
+\newcommand{\Abs}[1]{\AbsBrac{#1}}
+\newcommand{\Norm}[1]{\NormBrac{#1}}
+% \maxS{expr} = max(expr), you can change bracket type
+\newcommand{\maxS}[1]{\fnS{\max}{#1}}
+\newcommand{\maxM}[1]{\fnM{\max}{#1}}
+\newcommand{\maxL}[1]{\fnL{\max}{#1}}
+\newcommand{\maxAng}[1]{\fnAng{\max}{#1}}
+\newcommand{\maxAbs}[1]{\fnAbs{\max}{#1}}
+% \minS{expr} = min(expr), you can change bracket type
+\newcommand{\minS}[1]{\fnS{\min}{#1}}
+\newcommand{\minM}[1]{\fnM{\min}{#1}}
+\newcommand{\minL}[1]{\fnL{\min}{#1}}
+\newcommand{\minAng}[1]{\fnAng{\min}{#1}}
+\newcommand{\minAbs}[1]{\fnAbs{\min}{#1}}
+% \MaxS{expr} = Max(expr), you can change bracket type
+\newcommand{\MaxS}[1]{\fnS{\rS{Max}}{#1}}
+\newcommand{\MaxM}[1]{\fnM{\rS{Max}}{#1}}
+\newcommand{\MaxL}[1]{\fnL{\rS{Max}}{#1}}
+\newcommand{\MaxAng}[1]{\fnAng{\rS{Max}}{#1}}
+\newcommand{\MaxAbs}[1]{\fnAbs{\rS{Max}}{#1}}
+% \MinS{expr} = Min(expr), you can change bracket type
+\newcommand{\MinS}[1]{\fnS{\rS{Min}}{#1}}
+\newcommand{\MinM}[1]{\fnM{\rS{Min}}{#1}}
+\newcommand{\MinL}[1]{\fnL{\rS{Min}}{#1}}
+\newcommand{\MinAng}[1]{\fnAng{\rS{Min}}{#1}}
+\newcommand{\MinAbs}[1]{\fnAbs{\rS{Min}}{#1}}
+% \expS{expr} = exp(expr), you can change bracket type
+\newcommand{\expS}[1]{\fnS{\exp}{#1}}
+\newcommand{\expM}[1]{\fnM{\exp}{#1}}
+\newcommand{\expL}[1]{\fnL{\exp}{#1}}
+\newcommand{\expAng}[1]{\fnAng{\exp}{#1}}
+\newcommand{\expAbs}[1]{\fnAbs{\exp}{#1}}
+% \lnS{expr} = ln(expr), you can change bracket type
+\newcommand{\lnS}[1]{\fnS{\ln}{#1}}
+\newcommand{\lnM}[1]{\fnM{\ln}{#1}}
+\newcommand{\lnL}[1]{\fnL{\ln}{#1}}
+\newcommand{\lnAng}[1]{\fnAng{\ln}{#1}}
+\newcommand{\lnAbs}[1]{\fnAbs{\ln}{#1}}
+% \logS{base}{expr} = log_{base}(expr), you can change bracket type
+\newcommand{\logS}[2]{\fnS{\log_{#1}}{#2}}
+\newcommand{\logM}[2]{\fnM{\log_{#1}}{#2}}
+\newcommand{\logL}[2]{\fnL{\log_{#1}}{#2}}
+\newcommand{\logAng}[2]{\fnAng{\log_{#1}}{#2}}
+\newcommand{\logAbs}[2]{\fnAbs{\log_{#1}}{#2}}
+% \TrS{expr} = Tr(expr), you can change bracket type
+\newcommand{\TrS}[1]{\fnS{\Trace}{#1}}
+\newcommand{\TrM}[1]{\fnS{\Trace}{#1}}
+\newcommand{\TrL}[1]{\fnS{\Trace}{#1}}
+% ==== Derivatives ====
+% \PDeriv = Partial Frac Type, \DDeriv = Standard Frac Type
+\newcommand{\PDeriv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\DDeriv}[2]{\frac{d #1}{d #2}}
+% ==== Constant ====
+% \txtConst = Const (Roman), \intConst = C (Italic)
+\newcommand{\txtConst}{\rS{Const}}
+\newcommand{\intConst}{C}
+% ==== Aokama's Preference ====
+%   Some tricks that makes me happy
+\newcommand{\upperForall}{^{\forall}}
+\newcommand{\upperExists}{^{\exists}}
+\newcommand{\suchthat}{\quad \text{s.t} \quad}
+\newcommand{\proved}{\begin{flushright}$\blacksquare$\end{flushright}}
+
+% Document Body : Start
+\begin{document}
+
+% Document Body : Title
+%   This is minimal title for minimalists
+\title{ Titles }
+\author{ Author }
+\date{\empty}
+\maketitle
+
+% Document Body : Settings
+%   Disabled auto paragraph indentation
+%   Enabled display break (In some case you have to disable this for optimal results)
+\parindent = 0pt
+\allowdisplaybreaks[1]
+
+% Document Body : Contents
+\newpage
+
+\part{First Part}
+
+\section{First Section}
+
+\subsection{First Subsection}
+
+\begin{userThm}{Some Theorem}{thm1}
+    something
+\end{userThm}
+
+\subsection{Second Subsection}
+
+\begin{userPrp}{Some Proposition}{prp1}
+    something
+\end{userPrp}
+
+\begin{userLem}{Some Lemma}{lem1}
+    something
+\end{userLem}
+
+\begin{userCor}{Some Corollary}{cor1}
+    something
+\end{userCor}
+
+\section{Second Section}
+
+\subsection{Third Subsection}
+
+\begin{userDef}{Some Definition}{def1}
+    something
+\end{userDef}
+
+\begin{userAxm}{Some Axiom}{Axm1}
+    something
+\end{userAxm}
+
+% ==== YOUR CONTENTS HERE ====
+
+% Document Body : End
+\end{document}
